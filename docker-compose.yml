@@ -1,0 +1,39 @@
+version: "3"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/ruby/Dockerfile
+    container_name: jamty-backend
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    environment:
+      RAILS_ENV: development
+    volumes:
+      - gem_cache:/usr/local/bundle:cached
+      - rails_cache:/jamty/tmp/cache
+      - .:/jamty
+    # command:
+    #   - /bin/bash
+    #   - -c
+    #   - |
+    #   - bundle check || bundle install
+    #   - bash
+    ports:
+      - "3000:3000"
+  db:
+    build: docker/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES UTF8; SET CHARACTER SET utf8mb4;'
+    container_name: jamty-backend_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+volumes:
+  gem_cache:
+  db_data:
+  rails_cache:
