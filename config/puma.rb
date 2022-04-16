@@ -13,6 +13,9 @@ threads min_threads_count, max_threads_count
 #
 worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
+# Dockerコンテナ内で rails s した時に -b 0.0.0.0オプションを省略可能にする
+set_default_host '0.0.0.0'
+
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
 port ENV.fetch("PORT") { 3000 }
