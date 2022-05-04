@@ -31,3 +31,10 @@
 /config/master.key
 
 /vendor/bundle
+
+# 環境変数
+.env
+.env.development
+.env.test
+.env.staging
+.env.production
