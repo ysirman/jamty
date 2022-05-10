@@ -13,6 +13,7 @@ services:
       RAILS_ENV: development
     volumes:
       - gem_cache:/usr/local/bundle:cached
+      # - ./vendor/bundle:/usr/local/bundle # Gemの確認用。docker-compose run backend bundle install した後に docker-compose up する。
       - rails_cache:/jamty/tmp/cache
       - .:/jamty
     # command:
