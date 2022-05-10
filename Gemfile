@@ -75,3 +75,7 @@ end
 gem "paranoia"
 gem "dotenv-rails"
 gem "rack-cors"
+
+# ログイン関連
+gem "devise"
+gem "devise-jwt"
