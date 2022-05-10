@@ -69,5 +69,5 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # フロント側のDockerコンテナからコンテナ名でアクセス可能にする
-  Rails.application.config.hosts = ["backend"]
+  Rails.application.config.hosts = ["backend", "localhost"]
 end
