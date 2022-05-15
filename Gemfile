@@ -64,3 +64,5 @@ group :development do
   # gem "spring"
 end
 
+gem "paranoia"
+gem "dotenv-rails"
