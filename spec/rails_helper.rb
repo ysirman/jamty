@@ -61,4 +61,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # FactoryBotのクラス名を省略可能にする：FactoryBot.create(:user) => create(:user)
+  config.include FactoryBot::Syntax::Methods
 end
