@@ -74,3 +74,4 @@ end
 
 gem "paranoia"
 gem "dotenv-rails"
+gem "rack-cors"
