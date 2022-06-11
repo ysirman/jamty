@@ -1,4 +1,4 @@
-name: Run rubocop / bundler audit
+name: Run rubocop / Brakeman / RSpec
 
 on:
   push:
