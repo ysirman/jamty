@@ -56,7 +56,7 @@ Lint/StructNewOverride:
   Enabled: true
 
 Layout/LineLength:
-  Max: 150
+  Enabled: false
 
 Metrics/BlockLength:
   CountComments: false
@@ -151,3 +151,6 @@ Style/RegexpLiteral:
 # https://rubocop.readthedocs.io/en/stable/cops_style/#styleslicingwithrange
 Style/SlicingWithRange:
   Enabled: true
+
+Metrics/AbcSize:
+  Max: 27
