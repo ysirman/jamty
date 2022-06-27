@@ -1,12 +1,10 @@
 class V1::Auth::SessionsController < Devise::SessionsController
-  # CSRFは CORSの確認で対策するため、無効にしておく
-  skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token # CSRFは CORSの確認で対策するため、無効にしておく
+  prepend_before_action :check_api_key # 自由にリクエストされた場合の防止策として、念の為、API_KEYを設定して照合しておく。prepend_before_action :verify_signed_out_user, only: :destroyよりも前に実行したいので、before_actionは使わない。
 
   respond_to :json
 
   def create
-    # 自由にリクエストされた場合の防止策として、念の為、API_KEYを設定して照合しておく
-    return render json: { message: 'bad credentials' }, status: :unauthorized unless params[:api_key] == ENV['API_KEY']
     return render json: { message: 'bad credentials' }, status: :unauthorized if params[:uid].blank? || params[:provider].blank? || params[:name].blank?
 
     # Next-Authで取得した情報でそのままユーザー作成
@@ -23,8 +21,15 @@ class V1::Auth::SessionsController < Devise::SessionsController
 
   private
 
+    def check_api_key
+      return if params[:api_key] == ENV['API_KEY']
+
+      request.headers[:authorization] = nil # Warden内で必ずrevoke_jwtが呼ばれてヘッダーのJWTのUserをログアウトさせてしまう。そのため、事前にヘッダー削除しておく。
+      render json: { message: 'bad credentials' }, status: :unauthorized
+    end
+
     def respond_to_on_destroy
-      current_user ? log_out_success : log_out_failure
+      current_v1_user ? log_out_success : log_out_failure
     end
 
     def log_out_success
