@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_04_015808) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_11_131308) do
+  create_table "jams", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "scheduled_for"
+    t.integer "prefecture_id", null: false
+    t.string "place"
+    t.text "description"
+    t.datetime "canceled_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_jams_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "provider", default: "twitter", null: false
     t.string "uid", default: "", null: false
