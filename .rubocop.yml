@@ -71,7 +71,7 @@ Metrics/ClassLength:
 
 Metrics/MethodLength:
   CountComments: false
-  Max: 15
+  Max: 16
 
 Metrics/ModuleLength:
   CountComments: false
@@ -81,7 +81,7 @@ Naming/FileName:
     - 'Gemfile'
 
 Naming/MethodParameterName:
-  AllowedNames: [e]
+  Enabled: false
 
 RSpec/ContextWording:
   Enabled: false
@@ -155,3 +155,28 @@ Style/SlicingWithRange:
 
 Metrics/AbcSize:
   Max: 27
+
+Layout/HashAlignment:
+  Enabled: false
+
+GraphQL/ArgumentDescription:
+  Enabled: false
+
+GraphQL/FieldDescription:
+  Exclude:
+    - 'app/graphql/mutations/*'
+    - 'app/graphql/types/mutation_type.rb'
+    - 'app/graphql/types/query_type.rb'
+
+GraphQL/ObjectDescription:
+  Exclude:
+    - '**/*_schema.rb'
+    - '**/base_*.rb'
+    - 'app/graphql/mutations/*'
+    - 'app/graphql/types/mutation_type.rb'
+    - 'app/graphql/types/node_type.rb'
+    - 'app/graphql/types/query_type.rb'
+
+GraphQL/ExtractInputType:
+  Exclude:
+    - 'app/graphql/types/inputs/*.rb'
