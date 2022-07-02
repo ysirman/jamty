@@ -69,7 +69,10 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec'
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-graphql', require: false
+
+  gem 'graphiql-rails'
 end
 
 gem "paranoia"
@@ -79,3 +82,4 @@ gem "rack-cors"
 # ログイン関連
 gem "devise"
 gem "devise-jwt"
+gem "graphql"
