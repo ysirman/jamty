@@ -180,3 +180,7 @@ GraphQL/ObjectDescription:
 GraphQL/ExtractInputType:
   Exclude:
     - 'app/graphql/types/inputs/*.rb'
+
+GraphQL/ExtractType:
+  Exclude:
+    - 'app/graphql/types/mutation_type.rb'
