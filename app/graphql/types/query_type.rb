@@ -8,5 +8,7 @@ module Types
     # They will be entry points for queries on your schema.
     field :jam, resolver: Queries::JamQuery
     field :jams, resolver: Queries::JamsQuery
+    field :user, resolver: Queries::UserQuery
+    field :users, resolver: Queries::UsersQuery
   end
 end

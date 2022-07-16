@@ -4,5 +4,6 @@ module Types
     field :create_jam, mutation: Mutations::CreateJam
     field :uncancel_jam, mutation: Mutations::UncancelJam
     field :update_jam, mutation: Mutations::UpdateJam
+    field :update_user, mutation: Mutations::UpdateUser
   end
 end
