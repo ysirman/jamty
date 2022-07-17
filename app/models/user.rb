@@ -19,4 +19,8 @@ class User < ApplicationRecord
       )
     )
   end
+
+  def entry!(jam)
+    entries.create!(jam:)
+  end
 end
