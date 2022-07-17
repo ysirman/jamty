@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :owned_jams, class_name: 'Jam', dependent: nil
+  has_many :entries, dependent: :destroy
+  has_many :entered_jams, through: :entries, source: :jam
 
   def jwt_payload
     super.merge(

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_11_131308) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_16_131315) do
+  create_table "entries", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "jam_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["jam_id", "user_id"], name: "index_entries_on_jam_id_and_user_id", unique: true
+    t.index ["jam_id"], name: "index_entries_on_jam_id"
+    t.index ["user_id"], name: "index_entries_on_user_id"
+  end
+
   create_table "jams", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
     t.datetime "scheduled_for"
