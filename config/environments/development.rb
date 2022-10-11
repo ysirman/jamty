@@ -68,6 +68,6 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  # フロント側のDockerコンテナからコンテナ名でアクセス可能にする
-  Rails.application.config.hosts = ["backend", "localhost"]
+  # フロント側のDockerコンテナからホスト経由でアクセス可能にする（未設定の場合、ActionDispatch::HostAuthorization::DefaultResponseAppが発生）
+  Rails.application.config.hosts = ["host.docker.internal", "localhost"]
 end

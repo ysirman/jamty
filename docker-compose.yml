@@ -16,17 +16,8 @@ services:
       # - ./vendor/bundle:/usr/local/bundle # Gemの確認用。docker-compose run backend bundle install した後に docker-compose up する。
       - rails_cache:/jamty/tmp/cache
       - .:/jamty
-    # command:
-    #   - /bin/bash
-    #   - -c
-    #   - |
-    #   - bundle check || bundle install
-    #   - bash
     ports:
       - "3000:3000"
-    networks:
-      - default
-      - jamty-share-network
 
   db:
     build: docker/mysql
@@ -38,11 +29,8 @@ services:
       - db_data:/var/lib/mysql
     ports:
       - "3307:3306"
+
 volumes:
   gem_cache:
   db_data:
   rails_cache:
-
-networks:
-  jamty-share-network:
-    external: true
