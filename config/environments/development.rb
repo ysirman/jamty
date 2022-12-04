@@ -69,5 +69,6 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # フロント側のDockerコンテナからホスト経由でアクセス可能にする（未設定の場合、ActionDispatch::HostAuthorization::DefaultResponseAppが発生）
-  Rails.application.config.hosts = ["host.docker.internal", "localhost"]
+  # [nginx用の設定] nginx からのアクセスには app を使用
+  config.hosts = ["host.docker.internal", "localhost", "app"]
 end

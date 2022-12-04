@@ -14,10 +14,24 @@ services:
     volumes:
       - gem_cache:/usr/local/bundle:cached
       # - ./vendor/bundle:/usr/local/bundle # Gemの確認用。docker-compose run backend bundle install した後に docker-compose up する。
-      - rails_cache:/jamty/tmp/cache
-      - .:/jamty
+      - rails_cache:/app/tmp/cache
+      - .:/app
+      - sockets:/app/tmp/sockets # [nginx用の設定] nginx と socketファイルの共有
+    command: bundle exec puma -C config/puma.rb # [nginx用の設定] nginx を使う場合に使用。ローカル環境でnginxを使わない場合はコメントアウトする。
     ports:
       - "3000:3000"
+
+  # [nginx用の設定]
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    ports:
+      - '80:80'
+    volumes:
+      - sockets:/app/tmp/sockets # socketファイルの共有
+    depends_on:
+      - backend
 
   db:
     build: docker/mysql
@@ -34,3 +48,4 @@ volumes:
   gem_cache:
   db_data:
   rails_cache:
+  sockets: # [nginx用の設定]
