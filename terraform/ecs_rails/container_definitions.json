@@ -1,0 +1,92 @@
+[
+  {
+    "name": "jamty-nginx",
+    "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/jamty-nginx:${tag}",
+    "cpu": 0,
+    "memory": null,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "volumesFrom": [
+      {
+        "sourceContainer": "jamty-backend",
+        "readOnly": false
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "${region}",
+        "awslogs-group": "/${name}/ecs",
+        "awslogs-stream-prefix": "jamty-nginx"
+      }
+    },
+    "linuxParameters": {
+      "initProcessEnabled": true
+    }
+  },
+  {
+    "name": "jamty-backend",
+    "image": "${account_id}.dkr.ecr.${region}.amazonaws.com/jamty-backend:${tag}",
+    "cpu": 0,
+    "memory": null,
+    "command": [
+      "bash",
+      "-c",
+      "bundle exec rails db:migrate && mkdir -p tmp/pids && bundle exec puma -C config/puma.rb"
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "${region}",
+        "awslogs-group": "/${name}/ecs",
+        "awslogs-stream-prefix": "jamty-backend"
+      }
+    },
+    "linuxParameters": {
+      "initProcessEnabled": true
+    },
+    "environment": [
+      {
+        "name": "RAILS_ENV",
+        "value": "${rails_env}"
+      },
+      {
+        "name": "RAILS_LOG_TO_STDOUT",
+        "value": "${rails_log_to_stdout}"
+      },
+      {
+        "name": "DEVISE_JWT_SECRET_KEY",
+        "value": "${devise_jwt_secret_key}"
+      },
+      {
+        "name": "API_KEY",
+        "value": "${api_key}"
+      },
+      {
+        "name": "API_DOMAIN",
+        "value": "${api_domain}"
+      },
+      {
+        "name": "DB_HOST",
+        "value": "${db_host}"
+      },
+      {
+        "name": "DB_USERNAME",
+        "value": "${db_username}"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "value": "${db_password}"
+      },
+      {
+        "name": "DB_DATABASE",
+        "value": "${db_database}"
+      }
+    ]
+  }
+]

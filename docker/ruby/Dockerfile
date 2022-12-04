@@ -13,6 +13,14 @@ ENV LANG C.UTF-8
 RUN gem install bundler -v $BUNDLER_VERSION
 RUN gem update --system
 
-ENV APP /jamty
-RUN mkdir $APP
-WORKDIR $APP
+ENV APP_PATH /app
+RUN mkdir $APP_PATH
+WORKDIR $APP_PATH
+
+ADD Gemfile .
+ADD Gemfile.lock .
+ADD . $APP_PATH
+RUN bundle install
+
+# Nginxと通信を行うための準備
+VOLUME $APP_PATH/tmp/sockets
